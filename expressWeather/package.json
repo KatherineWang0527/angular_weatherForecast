@@ -1,0 +1,21 @@
+{
+  "name": "expressweather",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "node-fetch": "^3.0.0",
+    "query-string": "^7.0.1",
+    "ajax": "^0.0.4",
+    "cors": "^2.8.5"
+  }
+}

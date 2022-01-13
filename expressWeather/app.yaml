@@ -1,0 +1,5 @@
+
+# [START gae_quickstart_yaml]
+runtime: nodejs14
+env: standard
+# [END gae_quickstart_yaml]
