@@ -1,0 +1,33 @@
+<div style="width:70%;margin-left:120px">
+<!--<div class="tab-pane fade show active">-->
+  <div  class="alert alert-warning alert-dismissible fade show" role="alert"
+       *ngIf="localStorageArray.length == 0">
+    <strong>Sorry!</strong> No records found
+  </div>
+
+
+  <table class="table table-striped" *ngIf="localStorageArray.length > 0">
+    <thead>
+    <tr>
+      <th scope="col" style="width:80px">#</th>
+      <th scope="col" style="width:80px">City</th>
+      <th scope="col" style="width:80px">State</th>
+      <th scope="col" style="width:80px"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let storage of localStorageArray;let i=index;">
+      <td style="width:80px">{{i + 1}}</td>
+      <td style="width:80px"><a style="color: blue;text-decoration-line: underline"
+                               (click)="showDetail(i)">{{storage[1]}}</a></td>
+      <td style="width:80px"><a style="color: blue;text-decoration-line: underline"
+                                (click)="showDetail(i)">{{storage[2]}}</a></td>
+
+      <td style="width:80px">
+        <button><span class="material-icons" (click)="deleteTheFavorite(i)">delete_outline</span></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!--</div>-->

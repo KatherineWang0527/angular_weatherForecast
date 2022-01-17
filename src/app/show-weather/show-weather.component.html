@@ -1,0 +1,79 @@
+<div id="showWeather" class="container">
+  <div style="margin-top: 20px" class="navs-weather-home">
+    <p style="text-align: center; font-size:large;font-weight:bold">Forecast at {{showLocation}}</p>
+  </div>
+  <nav class="nav justify-content-end">
+    <!--    <div class="nav nav-tabs" role="tablist" >-->
+    <button (click)="addToFavorites(location)" class="btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star">
+        <path [ngClass]="{'star-fav':clickFavoriteStar}"
+              [attr.d]="isFavorite()">
+        </path>
+      </svg>
+    </button>
+    <a [ngClass]="{'disableA': !enableDetails}" (click)="showWeatherDetail(weatherIndex)">Details ></a>
+  </nav>
+
+
+  <nav class="nav justify-content-end">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-home-tab-wfy" data-toggle="tab" href="#nav-home-wfy" role="tab"
+         aria-controls="nav-home-wfy" aria-selected="true">Day View</a>
+      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile-wfy" role="tab"
+         aria-controls="nav-profile-wfy" aria-selected="false">Daily Temp Chart</a>
+      <a class="nav-item nav-link" id="nav-contact-tab-wfy" data-toggle="tab" href="#nav-contact-wfy" role="tab"
+         aria-controls="nav-contact-wfy" aria-selected="false">Meteogram</a>
+    </div>
+  </nav>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home-wfy" role="tabpanel" aria-labelledby="nav-home-tab-wfy">
+      <div id="weather-forecasts">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col" style="width:60px">#</th>
+            <th scope="col" style="width:360px">Date</th>
+            <th scope="col" style="width:260px">Status</th>
+            <th scope="col" style="width:140px">Temp.High(℉)</th>
+            <th scope="col" style="width:140px">Temp.Low(℉)</th>
+            <th scope="col" style="width:160px">Wind Speed(mph)</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let eachWeather of intervals_weather;let i=index;" class="table-each-item">
+            <th scope="row" class="daily_weather">{{i + 1}}</th>
+            <td><a style="color: blue;text-decoration-line: underline"
+                   (click)="showWeatherDetail(i)">{{getTheDate(eachWeather?.startTime?.toString())}}</a></td>
+            <td><img style="height:50px" [src]="(theWeatherCodeMap.get(eachWeather.values.weatherCode))[0]"
+                     alt="weather info"><span>{{theWeatherCodeMap.get(eachWeather.values.weatherCode)[1]}}</span></td>
+            <td>{{eachWeather.values.temperatureMax.toString()}}</td>
+            <td>{{eachWeather.values.temperatureMin}}</td>
+            <td>{{eachWeather.values.temperature}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-profile-wfy" role="tabpanel" aria-labelledby="nav-profile-tab-wfy">
+      <div id="temperature-range-chart" style="display: block;margin-left:20px;margin-top:40px">
+        <figure class="highcharts-figure">
+          <div id="container"></div>
+        </figure>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-contact-wfy" role="tabpanel" aria-labelledby="nav-contact-tab-wfy">
+      <div id="hourly-weather" style="width:100%;">
+        <figure class="highcharts-figure">
+          <div id="container2">
+            <div id="loading">
+              <i class="fa fa-spinner fa-spin"></i>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+</div>
+

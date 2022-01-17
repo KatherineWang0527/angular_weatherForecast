@@ -1,0 +1,171 @@
+<form class="form-horizontal" role="form" [formGroup]="profileForm" autocomplete="off">
+  <h4 style="text-align: center">Weather Search
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-sun"
+         viewBox="0 0 16 16">
+      <path
+        d="M7 8a3.5 3.5 0 0 1 3.5 3.555.5.5 0 0 0 .624.492A1.503 1.503 0 0 1 13 13.5a1.5 1.5 0 0 1-1.5 1.5H3a2 2 0 1 1 .1-3.998.5.5 0 0 0 .51-.375A3.502 3.502 0 0 1 7 8zm4.473 3a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5h-.027z"/>
+      <path
+        d="M10.5 1.5a.5.5 0 0 0-1 0v1a.5.5 0 0 0 1 0v-1zm3.743 1.964a.5.5 0 1 0-.707-.707l-.708.707a.5.5 0 0 0 .708.708l.707-.708zm-7.779-.707a.5.5 0 0 0-.707.707l.707.708a.5.5 0 1 0 .708-.708l-.708-.707zm1.734 3.374a2 2 0 1 1 3.296 2.198c.199.281.372.582.516.898a3 3 0 1 0-4.84-3.225c.352.011.696.055 1.028.129zm4.484 4.074c.6.215 1.125.59 1.522 1.072a.5.5 0 0 0 .039-.742l-.707-.707a.5.5 0 0 0-.854.377zM14.5 6.5a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+    </svg>
+  </h4>
+
+  <div class="form-group row">
+    <label for="street-p" class="col-sm-2 control-label">Street<span class="required" style="color:red">*</span></label>
+    <div class="col-sm-10">
+      <input type="text" (focusout)="detectStreetError()"
+             [ngClass]="streetInputError ? 'form-control is-invalid':'form-control'"
+             id="street-p" placeholder="" required formControlName="streetFormControl"
+             autocomplete="off">
+      <div class="invalid-feedback"
+           *ngIf="streetInputError">
+        Please enter a valid street.
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="city-p" class="col-sm-2 control-label">City<span class="required" style="color:red">*</span></label>
+    <div class="col-sm-10">
+      <input type="text" (focusout)="detectCityError()" autocomplete="off"
+             [ngClass]="cityInputError ? 'form-control is-invalid':'form-control'"
+             id="city-p" class="form-control"
+             matInput
+             formControlName="cityFormControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of cityOptions | async" [value]="option" (click)="selectCity(option)">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+      <div class="invalid-feedback"
+           *ngIf="cityInputError">
+        Please enter a valid city
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="state-p" class="col-sm-2 control-label">State</label>
+    <select class="form-control" id="state-p" formControlName="stateFormControl"
+            [value]="selectedCityState[1]">
+      <option class="theState" value="">Select your state</option>
+      <option class="theState" value="AL">Alabama</option>
+      <option class="theState" value="AK">Alaska</option>
+      <option class="theState" value="AS">American Samoa</option>
+      <option class="theState" value="AZ">Arizona</option>
+      <option class="theState" value="AR">Arkansas</option>
+      <option class="theState" value="CA">California</option>
+      <option class="theState" value="CO">Colorado</option>
+      <option class="theState" value="CT">Connecticut</option>
+      <option class="theState" value="DE">Delaware</option>
+      <option class="theState" value="DC">District of Columbia</option>
+      <option class="theState" value="FM">Federated States of Micronesia</option>
+      <option class="theState" value="FL">Florida</option>
+      <option class="theState" value="GA">Georgia</option>
+      <option class="theState" value="GU">Guam</option>
+      <option class="theState" value="HI">Hawaii</option>
+      <option class="theState" value="ID">Idaho</option>
+      <option class="theState" value="IL">Illinois</option>
+      <option class="theState" value="IN">Indiana</option>
+      <option class="theState" value="IA">Iowa</option>
+      <option class="theState" value="KS">Kansas</option>
+      <option class="theState" value="KY">Kentucky</option>
+      <option class="theState" value="LA">Louisiana</option>
+      <option class="theState" value="ME">Maine</option>
+      <option class="theState" value="MH">Marshall Islands</option>
+      <option class="theState" value="MD">Maryland</option>
+      <option class="theState" value="MA">Massachusetts</option>
+      <option class="theState" value="MI">Michigan</option>
+      <option class="theState" value="MN">Minnesota</option>
+      <option class="theState" value="MS">Mississippi</option>
+      <option class="theState" value="MO">Missouri</option>
+      <option class="theState" value="MT">Montana</option>
+      <option class="theState" value="NE">Nebraska</option>
+      <option class="theState" value="NV">Nevada</option>
+      <option class="theState" value="NH">New Hampshire</option>
+      <option class="theState" value="NJ">New Jersey</option>
+      <option class="theState" value="NM">New Mexico</option>
+      <option class="theState" value="NY">New York</option>
+      <option class="theState" value="NC">North Carolina</option>
+      <option class="theState" value="ND">North Dakota</option>
+      <option class="theState" value="MP">Northern Mariana Islands</option>
+      <option class="theState" value="OH">Ohio</option>
+      <option class="theState" value="OK">Oklahoma</option>
+      <option class="theState" value="OR">Oregon</option>
+      <option class="theState" value="PW">Palau</option>
+      <option class="theState" value="PA">Pennsylvania</option>
+      <option class="theState" value="PR">Puerto Rico</option>
+      <option class="theState" value="RI">Rhode Island</option>
+      <option class="theState" value="SC">South Carolina</option>
+      <option class="theState" value="SD">South Dakota</option>
+      <option class="theState" value="TN">Tennessee</option>
+      <option class="theState" value="TX">Texas</option>
+      <option class="theState" value="UT">Utah</option>
+      <option class="theState" value="VT">Vermont</option>
+      <option class="theState" value="VI">Virgin Islands</option>
+      <option class="theState" value="VA">Virginia</option>
+      <option class="theState" value="WA">Washington</option>
+      <option class="theState" value="WV">West Virginia</option>
+      <option class="theState" value="WI">Wisconsin</option>
+      <option class="theState" value="WY">Wyoming</option>
+    </select>
+  </div>
+
+
+  <div class="font-p">
+    <span >Auto detect location<span class="required" style="color:red">*</span></span>
+    <input type="checkbox" id="local-location" (click)="getCurrentLocation()">
+    <label for="local-location">Current Location</label>
+  </div>
+
+  <!--  search and clear button-->
+  <div class="buttonArea" style="margin: 20px;">
+    <button type="button" class="btn btn-primary active"  style="margin-right: 20px;" [disabled]="this.profileForm.controls['streetFormControl'].errors?.required || this.profileForm.controls['streetFormControl'].invalid && (this.profileForm.controls['streetFormControl'].dirty || this.profileForm.controls['streetFormControl'].touched) || this.profileForm.controls['cityFormControl'].errors?.required || this.profileForm.controls['cityFormControl'].invalid && (this.profileForm.controls['cityFormControl'].dirty || this.profileForm.controls['cityFormControl'].touched && !currentLocationIsChecked)" (click)="clickSearchButton()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+           viewBox="0 0 16 16">
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+      </svg>
+      Search
+    </button>
+    <button type="button" class="btn btn-primary clearButton" (click)="clickClearButton()">
+<!--            [ngStyle]="{'background-color' :this.clearButtonClicked ?clearButtonBackgroundColor:'white', 'color':this.clearButtonClicked ? clearButtonColor: 'black'}">-->
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-nested"
+           viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+      Clear
+    </button>
+  </div>
+</form>
+
+<!--nav bar-->
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="position:relative;justify-content: center">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" data-bs-toggle="pill" type="button"  #resultsTab (click)="showResults()">Results</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="pill"  type="button"  #favoritesTab (click)="showFavorites()">Favorites</button>
+  </li>
+</ul>
+
+<!--progress-->
+<div *ngIf="progress && this.failedSearch" class="mb-2">
+  <div class="progress" style="width:70%; margin-left:120px">
+    <div class="progress-bar" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0"
+         aria-valuemax="100"></div>
+  </div>
+</div>
+<div *ngIf="!this.failedSearch" class="alert alert-danger" role="alert" style="width:70%; margin-left:120px">
+  An error occured please try again later
+</div>
+
+<div class="route-container" [@routeAnimation]="getDepth(myOutlet)">
+<router-outlet #myOutlet="outlet"></router-outlet>
+</div>
+
+
+
+
+
